@@ -1,0 +1,11 @@
+.waveGraphWrapper{
+    position: relative;
+}
+
+.waveGraphWrapper canvas{
+    position: absolute;
+    top:0;
+    left:0;
+    height:500;
+    width: 1000;
+}
