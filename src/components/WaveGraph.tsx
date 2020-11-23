@@ -1,5 +1,7 @@
+import { off } from 'process';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { start } from 'repl';
 
 export interface WaveGraphProps {
     waveLength: number;
@@ -7,45 +9,71 @@ export interface WaveGraphProps {
 }
 
 const WaveGraph: React.FunctionComponent<WaveGraphProps> = (props: WaveGraphProps) => {
-    const [CtxWave, setCtxWave] = useState<CanvasRenderingContext2D>()
+    const [CtxWave, setCtxWave] = useState<CanvasRenderingContext2D>();
 
     // Offsets
     let YOffset = 0;
     let XOffset = 0;
     let nexFrameTO: number = 0; // Timeout Variable
-    const { waveLength, amplitude } = props
-    const bezier1Offset = 36.42;
-    const bezier2Offset = 65.35;
+    const { waveLength, amplitude } = props;
+
 
     const animationFrame = () => {
         if (!CtxWave) return
-        const drawCircleAt = (x: any, y: any) => { CtxWave.beginPath(); CtxWave.arc(x, y, 2 * Math.PI, 0, 359); CtxWave.stroke() }
+        const drawCircleAt = (x: any, y: any, color="black") => {CtxWave.beginPath(); CtxWave.arc(x, y, 2 * Math.PI, 0, 359); CtxWave.strokeStyle=color;CtxWave.stroke(); CtxWave.strokeStyle="black";CtxWave.closePath()}
 
 
         CtxWave.clearRect(0, 0, CtxWave.canvas.width, CtxWave.canvas.height);
         CtxWave.beginPath();
         CtxWave.moveTo(0, YOffset);
 
-        // CtxWave.bezierCurveTo(36 * waveLength, YOffset, 66 * waveLength, YOffset - amplitude, 100 * waveLength, YOffset - amplitude);
-        CtxWave.stroke();
-        // CtxWave.bezierCurveTo(134 * waveLength, YOffset - amplitude, 166 * waveLength, YOffset, 200 * waveLength, YOffset);
-        CtxWave.stroke();
+        const nbrOfWaves = Math.ceil(CtxWave.canvas.width / (waveLength * 200)) * 2;
 
-        CtxWave.closePath();
-
-        drawCircleAt(0, YOffset)
-        drawCircleAt(36 * waveLength, YOffset)
-        drawCircleAt(64 * waveLength, YOffset - amplitude)
-        drawCircleAt(100 * waveLength, YOffset - amplitude)
-        console.log(Math.ceil(CtxWave.canvas.width / 200));
-
-        for (let i = 0; i < Math.ceil(CtxWave.canvas.width / 200 * waveLength); i++) {
-            let offset = (i * 200) * waveLength
+        for (let i = 0; i < nbrOfWaves; i++) {
+            let offset = (i * 200) * waveLength + XOffset;
+            // if (offset < 0) offset = CtxWave.canvas.width - offset;
             CtxWave.beginPath();
-            CtxWave.moveTo(200 * i * waveLength, YOffset);
-            CtxWave.bezierCurveTo(36 * waveLength + offset, YOffset, 66 * waveLength + offset, YOffset - amplitude, 100 * waveLength + offset, YOffset - amplitude);
+            let startpoint = 200 * i * waveLength + XOffset
+            let finishPoint = 200 * waveLength + offset
+
+            
+
+            if (finishPoint < 0) {
+                startpoint = nbrOfWaves * waveLength * 200 + startpoint ;
+                offset = CtxWave.canvas.width + offset + waveLength * 100 * nbrOfWaves +100;
+                finishPoint = CtxWave.canvas.width + finishPoint + waveLength * 100 * nbrOfWaves;
+            }
+
+            drawCircleAt(startpoint,YOffset, "red");
+            drawCircleAt(offset,YOffset, "violet");
+            drawCircleAt(finishPoint,YOffset, "skyblue");
+
+            // if (startpoint < 0) startpoint = CtxWave.canvas.width - startpoint;
+            CtxWave.moveTo(startpoint, YOffset);
+
+            // Ascending curve
+            CtxWave.bezierCurveTo(
+                36 * waveLength + offset,
+                YOffset,
+
+                66 * waveLength + offset,
+                YOffset - amplitude,
+
+                100 * waveLength + offset,
+                YOffset - amplitude
+            );
             CtxWave.stroke();
-            CtxWave.bezierCurveTo(134 * waveLength + offset, YOffset - amplitude, 166 * waveLength + offset, YOffset, 200 * waveLength + offset, YOffset);
+
+            // Descendin curbe
+            CtxWave.bezierCurveTo(
+                134 * waveLength + offset,
+                YOffset - amplitude,
+
+                166 * waveLength + offset,
+                YOffset,
+
+                200 * waveLength + offset,
+                YOffset);
             CtxWave.stroke();
             CtxWave.closePath();
         }
@@ -55,8 +83,7 @@ const WaveGraph: React.FunctionComponent<WaveGraphProps> = (props: WaveGraphProp
         CtxWave.closePath();
         clearTimeout(nexFrameTO);
         nexFrameTO = requestAnimationFrame(() => animationFrame());
-        // nexFrameTO = window.setTimeout(() => amplitude)
-        XOffset += 2;
+        XOffset = (XOffset - 1.5) % (200 * waveLength * nbrOfWaves);
 
     }
 
@@ -77,12 +104,10 @@ const WaveGraph: React.FunctionComponent<WaveGraphProps> = (props: WaveGraphProp
         <div className={"canvasWrapper"}>
             <canvas
                 height="360"
-                width="5000"
+                width="500"
                 ref={(ref) => {
                     const ctx = ref?.getContext("2d");
                     if (!ctx) return null;
-                    ctx.canvas.width = 360;
-                    ctx.canvas.height = 500
                     setCtxWave(ctx);
                     (window as any).ctx = ctx;
                 }}
