@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import WaveGraph2 from './components/WaveGraph2';
 import "./components/component.css";
+import AppRouter from "./routes";
 
 
 
@@ -15,10 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <WaveGraph2
-        amplitude={amplitude}
-        wavelength={waveLength}
-      />
+      <AppRouter/>
     </div>
   );
 }
