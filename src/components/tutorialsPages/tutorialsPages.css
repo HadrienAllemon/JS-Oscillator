@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url(../../fonts/Roboto-Black.ttf) format('woff');
+}
+
+.tutorialText {
+    margin: auto;
+}
+
+.homepageWrapper .titleWrapper {
+    /*
+    display:block;
+    height:135px;
+    background:#0F0E16;
+    padding: 55px 0 0 40%;
+    background-image: url("../../img/LongBoxWave.png");
+    background-size: 599px;
+    background-repeat: no-repeat;
+    background-position: 0px;
+    border-bottom: 3px solid black;
+    */
+    text-align: center;
+    margin: 90px 0 70px 0;
+    font-family: 'Roboto', 'Courier New', Courier, monospace;
+    color: #E0E0E0;
+}
+
+.homepageWrapper .waveImg {
+    /* content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    top: -24px;
+    height: 241px;
+    width: 67%;
+    transform: scaley(.8);
+    display: block;
+    background-size: 1000px;
+    background-repeat: no-repeat;
+    background-position: center; */
+}
+
+.homepageWrapper .startButton {
+    background: linear-gradient(90deg, #ef4136, #5b5287);
+    margin: 65px auto 0 auto;
+    color: #D0D0D0;
+    height: 71px;
+    width: 164px;
+    border-radius: 10px;
+    line-height: 71px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.homepageWrapper .startButton:hover {
+    background: linear-gradient(90deg, #ef4136 70%, #5b5287 100%);
+}
+
+.homepageWrapper .startButton:active {
+    background: #ef4136;
+}
+
+.homepageWrapper .title {
+    font-size: 26px;
+}
+
+.homepageWrapper .introduction {
+    text-align: center;
+}
+
+.homepageWrapper .OscillatorImg {
+    background-image: url("../../img/Oscillator_gradiant.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 290px
+}

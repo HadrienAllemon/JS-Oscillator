@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import WaveGraph from './components/WaveGraph';
 import "./components/component.css";
+import { Tutorialwrapper } from './components/tutorialsPages/tutorialWrapper';
 
 
 
@@ -15,10 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <WaveGraph
-        amplitude={amplitude}
-        waveLength={waveLength}
-      />
+      <Tutorialwrapper/>
     </div>
   );
 }
