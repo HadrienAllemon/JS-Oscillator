@@ -1,24 +1,28 @@
 import React from 'react'
 
 interface HomepageProps {
+    next:(toRight:boolean)=>void
 }
 
-export function Homepage(props: HomepageProps) {
+const Homepage = (props: HomepageProps) => {
 
 
     return (
-        <div className="homepageWrapper">
-            <div className="titleWrapper">
-                <div className="title">
-                    Javascript Oscillators
+        <div className="homepage">
+            <div className="homepageWrapper">
+                <div className="titleWrapper">
+                    <div className="title">
+                        Javascript Oscillators
                 </div>
-                <p>A crash course for an in depth comprehesion of what are JavaScript Oscillators and how to use them properly</p>
-            </div>
-            <div className="OscillatorImg">
+                    <p className="introduction">A crash course for an in depth comprehesion of what are JavaScript Oscillators and how to use them properly</p>
+                    <div className="AbsoluteWaveImg" />
+                </div>
+                <div className="OscillatorImg" />
 
+                <div className="startButton" onClick={()=>props.next(true)}> Get Started </div>
             </div>
-            <div className="startButton"> Get Started </div>
-
         </div>
     )
 }
+
+export default Homepage

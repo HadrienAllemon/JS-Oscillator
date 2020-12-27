@@ -3,42 +3,67 @@
     src: local('Roboto'), url(../../fonts/Roboto-Black.ttf) format('woff');
 }
 
+/* -- COMMON --  */
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 .tutorialText {
     margin: auto;
 }
 
-.homepageWrapper .titleWrapper {
-    /*
-    display:block;
-    height:135px;
-    background:#0F0E16;
-    padding: 55px 0 0 40%;
-    background-image: url("../../img/LongBoxWave.png");
-    background-size: 599px;
-    background-repeat: no-repeat;
-    background-position: 0px;
-    border-bottom: 3px solid black;
-    */
-    text-align: center;
-    margin: 90px 0 70px 0;
-    font-family: 'Roboto', 'Courier New', Courier, monospace;
-    color: #E0E0E0;
+.pageTransition {
+    animation: slideInFromRight 0.2s ease forwards;
+ 
+}
+.pageWrapper{
+    position: relative;
+    width: 60%;
+    margin: auto;
 }
 
-.homepageWrapper .waveImg {
-    /* content: "";
+
+.AbsoluteWaveImg {
+    content: "";
     position: absolute;
-    left: 0;
-    top: 0;
-    top: -24px;
-    height: 241px;
-    width: 67%;
+   
+    width: 100%;
     transform: scaley(.8);
     display: block;
-    background-size: 1000px;
+    z-index: -1;
+    opacity: .6;
     background-repeat: no-repeat;
-    background-position: center; */
+    background-position: center;
+    background-image: url("../../img/LongBoxWave.png");
 }
+
+
+/* -- HomePage --  */
+
+.homePageWrapper .AbsoluteWaveImg{
+    left: 0;
+    top: 10px;
+    background-size: 964px;
+    height: 241px;
+}
+
+.homepageWrapper .titleWrapper {
+    text-align: center;
+    margin: 90px 0 70px 0;
+    font-family: 'Poor Richard', 'Roboto', 'Courier New', Courier, monospace;
+    color: #E0E0E0;
+    text-shadow: -1px -1px 1px #0f0e16, 1px 1px 1px #0f0e16, 1px -1px 1px #0f0e16, -1px 1px 1px #0f0e16;
+}
+
+
 
 .homepageWrapper .startButton {
     background: linear-gradient(90deg, #ef4136, #5b5287);
@@ -62,17 +87,55 @@
 }
 
 .homepageWrapper .title {
-    font-size: 26px;
+    font-size: 40px;
 }
 
 .homepageWrapper .introduction {
     text-align: center;
+    margin: 15px;
+    font-size: 20px;
 }
 
 .homepageWrapper .OscillatorImg {
     background-image: url("../../img/Oscillator_gradiant.png");
-    background-size: contain;
+    background-size: 455px;
     background-repeat: no-repeat;
     background-position: center;
     height: 290px
+}
+
+/* --- Common Pages --- */
+.pageTitle {
+    font-family: 'Poor Richard', 'Roboto', 'Courier New', Courier, monospace;
+    font-size: 35px;
+    /* background: -webkit-linear-gradient(45deg,#f3493d , #5b5287 150%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    color: #E0E0E0;
+    margin: 35px 0 25px 0;
+    background-position: center;
+    background-size: contain;
+    text-shadow: -1px -1px 1px #0f0e16, 1px 1px 1px #0f0e16, 1px -1px 1px #0f0e16, -1px 1px 1px #0f0e16;
+
+}
+
+.textBox {
+    width: 100%;
+    min-height: 80vh;
+    border: 3px solid black;
+    border-radius: 15px;
+    background: #FFFFFF;
+    opacity: .8;
+    padding: 0 23px;
+}
+
+/* --- PAGE 1 --- */
+.page1 .AbsoluteWaveImg{
+    left: -35px;
+    top: -102px;
+    background-size: 789px;
+    background-position: left;
+    height: 241px;
+    opacity: 0.85;
+    
 }
